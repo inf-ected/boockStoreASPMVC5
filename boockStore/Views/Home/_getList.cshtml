@@ -1,0 +1,13 @@
+﻿
+@model IEnumerable<string>
+
+
+<h2>@ViewBag.Message</h2>
+
+<p>test</p>
+
+<ul>
+    @foreach (var s in Model) {
+    <li>@s</li>
+    }
+</ul>

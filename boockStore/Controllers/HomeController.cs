@@ -12,10 +12,16 @@ namespace boockStore.Controllers
         BookContext db = new BookContext();
         public ActionResult Index()
         {
+            ViewBag.Message = "Это частичное представление";
+
             // получаем список всех книг
+            //var books = db.Books;
+            //ViewBag.Books = books;
+            //return View();
+            ///* Второй вариант со строго типизированными представлениями */
             var books = db.Books;
-            ViewBag.Books = books;
-            return View();
+            return View(books);
+
         }
         [HttpGet]
         public ActionResult Buy(int id)
@@ -30,6 +36,12 @@ namespace boockStore.Controllers
             db.Purchases.Add(purchase);
             db.SaveChanges();
             return "Спасибо, " + purchase.Person + ", за покупку!";
+        }
+
+        public ActionResult GetList() {
+            ViewBag.Message = "Это частичное представление";
+            string[] states = { "USA", "FR", "DE" };
+            return PartialView("~/Views/Home/_getList.cshtml",states);
         }
 
         public ActionResult About()

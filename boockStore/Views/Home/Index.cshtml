@@ -1,4 +1,12 @@
-﻿@{
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+@* Layout=null отменить мастерстраницу*@
+
+@using boockStore.Models
+@model IEnumerable<Book>
+@{
     ViewBag.Title = "Книжный Магазин";
 }
 
@@ -13,7 +21,10 @@
             <td></td>
 
         </tr>
-        @foreach (var b in ViewBag.Books) {
+        @*        @foreach (var b in ViewBag.Books) {*@
+        @foreach (Book b in Model)
+        {
+
             <tr>
                 <td><p>@b.Name</p></td>
                 <td><p>@b.Author</p></td>
@@ -23,4 +34,12 @@
             </tr>
         }
     </table>
+
+    @*@Html.Partial("~/Views/Home/_getList.cshtml")*@
+    @*@{Html.RenderPartial("~/Views/Home/_getList.cshtml",new string[]{"USA","FR","DE"}); }*@
+    @Html.Action("getList")
+
+
+   
+
 </div>
