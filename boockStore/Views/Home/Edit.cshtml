@@ -1,0 +1,30 @@
+﻿@model boockStore.Models.Book
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Книга № @Model.Id</h2>
+
+@using (Html.BeginForm())
+{
+    <fieldset>
+        @Html.HiddenFor(m => m.Id)
+        <p>
+            @Html.LabelFor(m => m.Name)
+            <br />
+            @Html.EditorFor(m => m.Name)
+        </p>
+        <p>
+            @Html.LabelFor(m => m.Author)
+            <br />
+            @Html.EditorFor(m => m.Author)
+        </p>
+        <p>
+            @Html.LabelFor(m => m.Price)
+            <br />
+            @Html.EditorFor(m => m.Price)
+        </p>
+        <input type="submit" value="Обновить" />
+    </fieldset>
+}

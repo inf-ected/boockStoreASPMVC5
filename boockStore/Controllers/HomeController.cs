@@ -24,6 +24,82 @@ namespace boockStore.Controllers
 
         }
         [HttpGet]
+        public ActionResult Create() {
+
+            return View();        
+        }
+        [HttpPost]
+        public ActionResult Create(Book book)
+        {
+            db.Books.Add(book); //SQL INSERT
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        //public ActionResult Delete(int id)
+        //{
+        //    Book b = db.Books.Find(id); // 1ый запрос 
+        //    if (b != null) {
+        //        db.Books.Remove(b);// SQl DELETE // 2-ой запрос
+        //        db.SaveChanges();
+        //    }
+
+        //    //вариант в 1 запрос 
+        //    //Book bb = new Book { Id = id };
+        //    //db.Entry(bb).State = System.Data.Entity.EntityState.Deleted;
+        //    //db.SaveChanges();
+
+        //    // НО! <img src="нашсайт/Home/Delete/1" />
+
+        //    return RedirectToAction("Index");
+        //}
+        [HttpGet]
+        public ActionResult Delete(int id) {
+            Book b = db.Books.Find(id); 
+            if (b == null)
+            {
+                return HttpNotFound();
+            }
+            return View(b);
+        }
+        [HttpPost , ActionName("Delete") ]
+        public ActionResult DeleteConfirmed(int id) {
+            Book b = db.Books.Find(id);
+            if (b == null)
+            {
+                return HttpNotFound();
+            }
+            db.Books.Remove(b);// SQl DELETE // 2-ой запрос
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        [HttpGet]
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+                return HttpNotFound();
+
+            Book b = db.Books.Find(id);
+            if (b != null)
+            {
+                return View(b);
+            }
+            return HttpNotFound();
+        }
+        [HttpPost]
+        public ActionResult Edit(Book book)
+        {
+            db.Entry(book).State = System.Data.Entity.EntityState.Modified; // sql UPDATE
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+
+
+
+
+        [HttpGet]
         public ActionResult Buy(int id)
         {
             ViewBag.BookId = id;
